@@ -1,5 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include "spoj.php";
+session_start();
+?>
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial scale=1.0">
@@ -8,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
 <div class="header">
 <div class="container">
@@ -21,8 +26,6 @@
             <li><a href="product.php">Shop</a></li>
             <li><a href="onama.php">O nama</a></li>
             <?php
-            include "spoj.php";
-            session_start();
             if ($_SESSION == NULL) {
         ?>
         
@@ -49,52 +52,68 @@
 
 </div>
 
-<!---------single product details----->
-<div class="small-container single product">
-    <div class="row">
-        <div class="col-2">
-            <img src="slikice/product3.jpg" width="100%" id="productImg" >
+<?php 
 
-            <div class="small-img-row">
-                <div class="small-img-col">
-                    <img src="slikice/product3.jpg" width="100%" class="small-img">
-                </div>
+    $product_id = $_GET['p'];
+    
+    $sql = " SELECT * FROM products WHERE product_id = $product_id";
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            echo '
+                <div class="small-container single product">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="slikice/'.$row['product_image'].'" width="100%" id="productImg" >
             
-                <div class="small-img-col">
-                    <img src="slikice/remi2.png" width="100%" class="small-img">
-                </div>
+                            <div class="small-img-row">
+                                <div class="small-img-col">
+                                    <img src="slikice/'.$row['product_image'].'" width="100%" class="small-img">
+                                </div>
+                            
+                                <div class="small-img-col">
+                                    <img src="slikice/'.$row['product_image'].'" width="100%" class="small-img">
+                                </div>
+                            
+                                <div class="small-img-col">
+                                    <img src="slikice/'.$row['product_image'].'" width="100%" class="small-img">
+                                </div>
+                            </div>
+                        </div>
+                    
+                
+                    <div class="col-2">
+                        <h1>'.$row['product_title'].'</h1>
+                        <h4>$'.$row['product_price'].'</h4>
+
+                        <select>
+                            <option> Izaberi veličinu</option><br>
+                            <option> XL</option>
+                            <option> L</option>
+                            <option> M</option>
+                            <option> S</option>
             
-                <div class="small-img-col">
-                    <img src="slikice/remi3.jpg" width="100%" class="small-img">
+                        </select>
+
+                        <input type="number" value="1">
+                        <a href="" class="btn">Dodaj u košaricu</a>
+                        <h3>Detalji o proizvodu</h3>
+                        <p>'.$row['product_desc'].'</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-    
-        <div class="col-2">
-            <p>Home/</p>
-            <h1>Hrana za mačke Alleva </h1>
-            <h4>$10.00</h4>
-            <select>
-                <option> Izaberi veličinu</option><br>
-                <option> XL</option>
-                <option> L</option>
-                <option> M</option>
-                <option> S</option>
-
-            </select>
-            <input type="number" value="1">
-            <a href="" class="btn">Dodaj u košaricu</a>
-            <h3>Detalji o proizvodu <i class="fa fa-indent"></i>
-            </h3><br>
-            <p>Potpuna hrana za odrasle mačke, od piletine i pačetine, s dodatkom vlakana šećerne trske i ginsenga.
+            ';
+            $_SESSION['product_id'] = $row['product_id'];
+        }
+    } 
+?>
 
 
-               SASTAV: dehidrirana piletina 40%, riža, pileća mast, grašak, dehidrirani losos 4%, sušena pulpa jabuke, hidrolizirana pileća jetra 2%, lososovo ulje 2%, sušeni špinat 0,5%, manan oligosaharidi (150 mg/kg), voćni oligosaharidi (120 mg/kg), Mojave juka (80 mg/kg), sušeni ružmarin (12 mg/kg), sušeni klinčić (12 mg/kg), sušeni agrumi (12 mg/kg), sušena kurkuma (12 mg/kg).
-                </p>
-        </div>
-    </div>
-</div>
 <!---------title------>
 <div class="small-container">
     <div class="row row-2">
