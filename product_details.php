@@ -56,7 +56,7 @@ session_start();
 
     $product_id = $_GET['p'];
     
-    $sql = " SELECT * FROM products WHERE product_id = $product_id";
+    $sql = " SELECT * FROM proizvodi WHERE Id = $product_id";
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -69,27 +69,27 @@ session_start();
                 <div class="small-container single product">
                     <div class="row">
                         <div class="col-2">
-                            <img src="slikice/'.$row['product_image'].'" width="100%" id="productImg" >
+                            <img src="slikice/'.$row['Image'].'" width="100%" id="productImg" >
             
                             <div class="small-img-row">
                                 <div class="small-img-col">
-                                    <img src="slikice/'.$row['product_image'].'" width="100%" class="small-img">
+                                    <img src="slikice/'.$row['Image'].'" width="100%" class="small-img">
                                 </div>
                             
                                 <div class="small-img-col">
-                                    <img src="slikice/'.$row['product_image'].'" width="100%" class="small-img">
+                                    <img src="slikice/'.$row['Image'].'" width="100%" class="small-img">
                                 </div>
                             
                                 <div class="small-img-col">
-                                    <img src="slikice/'.$row['product_image'].'" width="100%" class="small-img">
+                                    <img src="slikice/'.$row['Image'].'" width="100%" class="small-img">
                                 </div>
                             </div>
                         </div>
                     
                 
                     <div class="col-2">
-                        <h1>'.$row['product_title'].'</h1>
-                        <h4>$'.$row['product_price'].'</h4>
+                        <h1>'.$row['Naziv'].'</h1>
+                        <h4>$'.$row['Cijena'].'</h4>
 
                         <select>
                             <option> Izaberi veličinu</option><br>
@@ -103,12 +103,12 @@ session_start();
                         <input type="number" value="1">
                         <a href="" class="btn">Dodaj u košaricu</a>
                         <h3>Detalji o proizvodu</h3>
-                        <p>'.$row['product_desc'].'</p>
+                        <p>'.$row['Opis'].'</p>
                     </div>
                 </div>
             </div>
             ';
-            $_SESSION['product_id'] = $row['product_id'];
+            $_SESSION['Id'] = $row['Id'];
         }
     } 
 ?>

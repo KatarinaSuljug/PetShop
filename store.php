@@ -65,24 +65,20 @@
                     </select>
                 </div>
                 <?php 
-                    $product_query = "SELECT * FROM products,categories WHERE product_cat=cat_id";
+                    $product_query = "SELECT * FROM proizvodi";
                     $run_query = mysqli_query($conn,$product_query);
                     if(mysqli_num_rows($run_query) > 0){
                         while($row = mysqli_fetch_array($run_query)){
-                            $pro_id    = $row['product_id'];
-                            $pro_cat   = $row['product_cat'];
-                            $pro_title = $row['product_title'];
-                            $pro_price = $row['product_price'];
-                            $pro_image = $row['product_image'];
-                            
-                            $cat_name = $row["cat_title"];
+                            $pro_id    = $row['Id'];
+                            $pro_title = $row['Naziv'];
+                            $pro_price = $row['Cijena'];
+                            $pro_image = $row['Image'];
                             echo "
                                     <div class='row'>
                                         <a href='product_details.php?p=$pro_id'>
                                             <img src='slikice/$pro_image' style='max-height: 250px; max-width: 250px;'>
                                         </a>
                                         <div class='product-body'>
-                                            <p class='product-category'>$cat_name</p>
                                             <h3 class='product-name header-cart-item-name'><a href='product_details.php?p=$pro_id'>$pro_title</a></h3>
                                             <h4 class='product-price header-cart-item-info'>$pro_price $</h4>
                                         </div>

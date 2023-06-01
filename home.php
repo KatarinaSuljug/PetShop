@@ -10,42 +10,6 @@
    
 </head>
 <body>
-<script>
-// Get the modal and button elements
-var modal = document.getElementById("product-modal");
-var btn = document.getElementById("product-modal-btn");
-
-// When the button is clicked, display the modal and populate the content with product information
-btn.onclick = function() {
-  modal.style.display = "block";
-  // Get the product information from the server using AJAX
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      // Parse the JSON response from the server
-      var product = JSON.parse(this.responseText);
-      // Populate the modal content with the product information
-      document.getElementById("product-image").src = product.image;
-      document.getElementById("product-name").innerHTML = product.name;
-      document.getElementById("product-description").innerHTML = product.description;
-      document.getElementById("product-price").innerHTML = "Price: " + product.price;
-    }
-  };
-  xhttp.open("GET", "get_product_info.php", true);
-  xhttp.send();
-};
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-</script>
-
-
-
-
 
 <div class="header">
 <div class="container">
@@ -56,7 +20,7 @@ window.onclick = function(event) {
     <nav>
         <ul id="MenuItems">
             <li><a href="home.php">Naslovna</a></li>
-            <li><a href="product.php">Shop</a></li>
+            <li><a href="store.php">Shop</a></li>
             <li><a href="onama.php">O nama</a></li>
             <?php
             include "spoj.php";
@@ -91,7 +55,7 @@ window.onclick = function(event) {
     <div class="col-2">
         <h1>Postani dio Pet Kluba!</h1>
         <p>Učlani se u Pet Klub i ostvari bodove koji ti donose popuste.</p>
-        <a href="product.php" class="btn">Posebne ponude &#8594;</a>
+        <a href="store.php" class="btn">Posebne ponude &#8594;</a>
     </div>
 
     <div class="slikica">
@@ -104,13 +68,6 @@ window.onclick = function(event) {
 </div>
 
 <!-----featured categories------------>
-
-
-
-
-
-
-
 
     <div class="categories">
         <div class="small-container">
@@ -131,58 +88,6 @@ window.onclick = function(event) {
        
     </div>
 <!-----featured products------------>
-
-
-
-
-<?php
-
-$sql = "SELECT Naziv, Id, Cijena, Image FROM proizvodi";
-                $result = mysqli_query($conn, $sql);
-
-                if (mysqli_num_rows($result) > 0) {
-                    while($row = mysqli_fetch_assoc($result))
-                    {
-                        $pro_title = $row['Naziv'];
-                        $pro_price = $row['Cijena'];
-                        $pro_id = $row['Id'];
-                        $pro_image = $row['Image'];
-                        echo "
-                        <div class='col-md-4'>
-                                 <div class='panel panel-info'>
-                                        <div class='panel-heading'>$pro_title</div>
-                                        <div class='panel-body'>
-                                            <img src='slikice/$pro_image' style='width:160px; height:250px;'/>
-                                        </div>
-                                        <div class='panel-heading'> $pro_price.00
-                                            <button pid='$pro_id'  id='product-modal-btn' class='btn btn-danger btn-xs'>Detalji</button>
-                                        </div>
-                                    </div>
-                                </div>    
-                    ";
-                    }
-                    echo "</table>";
-                } else {
-                echo "0 results";
-                }
-                mysqli_close($conn);
-
-?>
-<!-- Modal container -->
-<div id="product-modal" style="display: none;">
-  <!-- Modal content -->
-  <div id="product-modal-content">
-    <img id="product-image" src="">
-    <h2 id="product-name"></h2>
-    <p id="product-description"></p>
-    <p id="product-price"></p>
-  </div>
-</div>
-
-
-
-
-
 
   
 <!-----brands------------>
